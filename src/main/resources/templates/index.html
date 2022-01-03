@@ -13,9 +13,9 @@
             </tr>
         </thead>
         <tbody>
-            <tr>
-                <td>Amount</td>
-                <td th:text="${currency}"/>
+            <tr data-th-each="price : ${prices}">
+                <td>[[${price.data.amount}]]</td>
+                <td>[[${price.data.currency}]]</td>
             </tr>
         </tbody>
     </table>
