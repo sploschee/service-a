@@ -17,5 +17,5 @@ spec:
           service:
             name: {{ include "service-a.name" . }}
             port:
-              number: 80
+              number: {{ .Values.service.port }}
 ---
