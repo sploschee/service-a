@@ -1,0 +1,98 @@
+pipeline {
+    agent {
+        label "jenkins-maven-java11"
+    }
+    environment {
+        ORG = 'splosch'
+        APP_NAME = 'service-a'
+    }
+
+    stages {
+
+        stage('OPA') {
+            when {
+                branch 'PR-*'
+            }
+            steps {
+                container('maven') {
+                    // Run OPA Checks
+                }
+            }
+        }
+
+        stage('Build and push snapshot') {
+            when {
+                branch 'PR-*'
+            }
+            environment {
+            }
+            steps {
+                container('maven') {
+                //    Build image & push to ecr
+                }
+            }
+        }
+
+        stage('Build Master') {
+            when {
+                branch 'master'
+            }
+            steps {
+                container('maven') {
+                 //    Build image & push to ecr
+                }
+            }
+        }
+
+        stage('Vuln Scanning') {
+            when {
+                branch 'PR-*'
+            }
+            steps {
+                container('maven') {
+                    //  Run Vuln Scanning
+                }
+            }
+        }
+
+        stage('Preview') {
+            when {
+                branch 'PR-*'
+            }
+            environment {
+            }
+            steps {
+                // Create Ephemeral Preview Env {include namespace, secrets}
+            }
+        }
+
+        stage('Release, promote to longer lived environments') {
+            when {
+                branch 'master'
+            }
+            steps {
+                // Create Release
+                // Promote to longer lived env #1
+                // Run any integration tests required
+            }
+        }
+
+        stage('Promote to long lived envs') {
+            when {
+                allOf {
+                    branch 'master'
+                }
+            }
+            steps {
+                container('maven') {
+                    // Promote as requred
+                }
+            }
+        }
+    }
+    post {
+        always {
+            cleanWs()
+        }
+    }
+}
