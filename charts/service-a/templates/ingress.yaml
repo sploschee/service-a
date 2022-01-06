@@ -1,0 +1,21 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: {{ include "service-a.fullname" . }}
+  labels:
+    app.kubernetes.io/name: {{ include "service-a.name" . }}
+    helm.sh/chart: {{ include "service-a.chart" . }}
+    app.kubernetes.io/instance: {{ .Release.Name }}
+    app.kubernetes.io/managed-by: {{ .Release.Service }}
+spec:
+  rules:
+  - http:
+      paths:
+      - pathType: Prefix
+        path: "/foo"
+        backend:
+          service:
+            name: {{ include "service-a.name" . }}
+            port:
+              number: 80
+---
