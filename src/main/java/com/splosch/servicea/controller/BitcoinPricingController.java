@@ -24,7 +24,7 @@ public class BitcoinPricingController {
     @ResponseBody
     Flux<SpotPrice> getSpotPrice(
             @RequestParam(name = "currency", required = false, defaultValue = "USD") String currency) {
-        return bitcoinPricingService.getSpotPrice(currency).delayElements(Duration.ofSeconds(5));
+        return bitcoinPricingService.getSpotPrice(currency).delayElements(Duration.ofSeconds(60));
 
     }
 
