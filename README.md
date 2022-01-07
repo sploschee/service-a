@@ -30,7 +30,7 @@ To view values retreived, navigate http://localhost:8080/
 Developed locally using Spring-Boot, Docker Desktop & Kind
 
 ### Issues
-1.  Ingress Config
+1.  Ingress Config (see Open PR)
 2.
 3.
 
