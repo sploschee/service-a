@@ -1,0 +1,5 @@
+apiVersion: v2
+description: A Helm chart for Kubernetes
+icon: https://raw.githubusercontent.com/jenkins-x/jenkins-x-platform/master/jenkins-x-platform/images/java.png
+name: service-a
+version: v0.0.1
